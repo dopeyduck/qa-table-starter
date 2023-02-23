@@ -1,15 +1,12 @@
 #!/bin/bash
 
-# This script compares all witnesses with every other one by looping through two arrays, both of which contain the same number of witnesses. For each comparison, a .csv file is generated and the written to a user-defined directory. The database variable must also be set and the script run from the folder containing the open-cbgm scripts. This script also looks for each place where a witness might be compared to itself. The open-cbgm library doesn't permit this, so this script skips those witness pairs.
+A=(A P72 P74 P78 01 02 03 04 018 020 025 044 049 056 0142 0251 0316)
 
+B=(A P72 P74 P78 01 02 03 04 018 020 025 044 049 056 0142 0251 0316)
 
-A=(A NA28 RP 01 02 03) # Your witnesses go here
+command=./compare_witnesses
 
-B=(A NA28 RP 01 02 03) # Replicate witnesses from array A
-
-command=./compare_witnesses # You must be in the /bin directory where the scripts are to run this command.
-
-database=cache.db # Specify your custom database here.
+database=cacheECM.db
 
 
 for item1 in "${A[@]}"; do
@@ -18,11 +15,11 @@ for item1 in "${A[@]}"; do
             continue
             break
         fi
-    $command -f csv -o /Users/nicholaslamme/Public/open-cbgm-standalone/build/bin/qaTable/$item1-$item2.csv $database $item1 $item2 # Remove "/Users/nicholaslamme/Public/open-cbgm-standalone/build/bin/qaTable" and replace it with your own custom directory. Leave $item1-$item2.csv as the name of the file.
+    $command -f csv -o /Users/nicholaslamme/Public/open-cbgm-standalone/build/bin/qaTableECM/$item1-$item2.csv $database $item1 $item2
     done
 done
 
-cd /Users/nicholaslamme/Public/open-cbgm-standalone/build/bin/qaTable/ #Put your user defined directory here after cd (the same as you specified above).
+cd /Users/nicholaslamme/Public/open-cbgm-standalone/build/bin/qaTableECM/
 
     for f in *.csv
     do
@@ -30,4 +27,7 @@ cd /Users/nicholaslamme/Public/open-cbgm-standalone/build/bin/qaTable/ #Put your
 done
 
 
-# Once the script is done running, you will need to open the combined.csv file in your editor of choice and clean up the file so that it is usable by Excel for generating a QA table. You can see a video of how I have done this at www.youtube.com/
+
+
+
+
